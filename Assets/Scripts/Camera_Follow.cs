@@ -17,8 +17,8 @@ public class Camera_Follow : MonoBehaviour
 
     private const float Y_ANGLE_MIN = 0f;
     private const float Y_ANGLE_MAX = 25.0f;
-    //  private float currentX = 0f;
-    //  private float currentY = 0f;
+    private float currentX = 0f;
+    private float currentY = 0f;
 
     private float zoomSpeed;
     private float sensitivityX = 0f;
@@ -45,10 +45,10 @@ public class Camera_Follow : MonoBehaviour
         {
             ChangeSplitScreen();
         }
-      //  currentX += Input.GetAxis("Mouse X");
-     //   currentY += Input.GetAxis("Mouse Y");
+        currentX += Input.GetAxis("Mouse X");
+        currentY += Input.GetAxis("Mouse Y");
 
-       // currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+        currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
     }
 
     private void FixedUpdate()
@@ -59,9 +59,9 @@ public class Camera_Follow : MonoBehaviour
 
     private void LateUpdate()
     {
-      //  Vector3 dir = new Vector3(0, 0, -distance);
-      //  Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
-       // tf.position = target.position + rotation * dir;
+        Vector3 dir = new Vector3(0, 0, -distance);
+        Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
+        tf1.position = target1.position + rotation * dir;
         tf1.LookAt(target1.position + offset);
        // tf2.LookAt(target2.position + offset);
     }
@@ -124,7 +124,7 @@ public class Camera_Follow : MonoBehaviour
 
     public void Move()
     {
-        FindAveragePosition();
+       // FindAveragePosition();
 
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref moveVelocity, dampTime);
     }
